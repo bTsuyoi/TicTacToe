@@ -4,7 +4,6 @@ public class TicTacToe{
 	private static char player_choice;
 	private static char computer_choice;
 	public static Scanner sc= new Scanner(System.in); 
-//	private static char [][] boardGame = new char [3][3];
 	public static char[] board;
 	public static char[] board() {
 		board = new char[10];
@@ -19,7 +18,7 @@ public class TicTacToe{
 		
 		
 		if (player_choice == 'X') {
-			computer_choice = 'Y';
+			computer_choice = 'O';
 			System.out.println("Computer letter is: "+ computer_choice);		
 		}
 		else {
@@ -36,7 +35,7 @@ public class TicTacToe{
 		System.out.println(" "+board[7]+" | "+board[8]+" | "+board[9]+" ");
 	}
 	
-	public static void toPlay(){
+	public static void playerMove(){
 		System.out.println("Which position you want to enter you next move.");
 		while(move.equals("notdone")) {
 			int index = sc.nextInt();	
@@ -45,6 +44,7 @@ public class TicTacToe{
 				if(board[index] == ' ') {
 					board[index] = player_choice;
 					move = "done";
+					break;
 					}
 				else
 					System.out.println("Position is not empty.");
@@ -55,17 +55,43 @@ public class TicTacToe{
 			System.out.println("Choose available positions present within board.");
 		}
 	}
+	public static void computerMove()	{
+		System.out.println("computer move");
+	}
+	public static void toss(){
+
+		System.out.println("Toss: Heads 'H' or Tails 'T' :");
+		char toss = sc.next().charAt(0);
+		String tossResult = (int) (Math.random() * 10) % 2	== 0 ? "Heads" : "Tails";
+		System.out.println("Tossed: "+tossResult);
+
+		if( toss != tossResult.charAt(0)) {
+			System.out.println("Computer won toss.");
+			computerMove();		
+			board[1] = computer_choice;
+			showBoard();
+		}
+		else {
+			System.out.println("Player won toss.");
+			playerMove();
+		}
+			
+		}
+	
+	
+	
 	public static void main(String[] args) {
 		
 		
-		System.out.println("Choice letter X or Y for player");
+		System.out.println("Choice letter X or O for player");
 		String choice = sc.nextLine();
 		player_choice=choice.charAt(0);
 		System.out.println("Welcome to TicTacToe Game");
         board = board();
 		chooseLetter();
 		showBoard();
-		toPlay();
+        toss();
+        playerMove();
 		showBoard();
 		sc.close();
 	}
