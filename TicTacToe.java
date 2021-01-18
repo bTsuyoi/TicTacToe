@@ -3,6 +3,9 @@ public class TicTacToe{
 	public static String move = "notdone";
 	private static char player_choice;
 	private static char computer_choice;
+	public static String currentPlayer;
+	public static String nextPlayer;
+	public static String game="notdone";
 	public static Scanner sc= new Scanner(System.in); 
 	public static char[] board;
 	public static char[] board() {
@@ -37,12 +40,15 @@ public class TicTacToe{
 	
 	public static void playerMove(){
 		System.out.println("Which position you want to enter you next move.");
+		currentPlayer="Player";
+		move="notdone";
 		while(move.equals("notdone")) {
 			int index = sc.nextInt();	
 			if(index > 0 && index < board.length)
 			{
 				if(board[index] == ' ') {
 					board[index] = player_choice;
+					showBoard();
 					move = "done";
 					break;
 					}
@@ -54,9 +60,21 @@ public class TicTacToe{
 			System.out.println("Entered position is outside the board.");
 			System.out.println("Choose available positions present within board.");
 		}
+		nextPlayer="computer";
 	}
 	public static void computerMove()	{
 		System.out.println("computer move");
+		currentPlayer="Computer";
+		for (int i=1; i<board.length; i++)
+		{
+			if(board[i] == ' ') {
+				board[i] = computer_choice;
+				showBoard();
+				nextPlayer="player";
+				break;
+				}
+		
+		}
 	}
 	public static void toss(){
 
@@ -67,17 +85,46 @@ public class TicTacToe{
 
 		if( toss != tossResult.charAt(0)) {
 			System.out.println("Computer won toss.");
+			currentPlayer="Computer";
 			computerMove();		
-			board[1] = computer_choice;
-			showBoard();
+
 		}
 		else {
 			System.out.println("Player won toss.");
+			currentPlayer="Player";
 			playerMove();
-		}
-			
+
 		}
 	
+	}
+	public static void play() {
+		if(nextPlayer.equals("player")) {
+			playerMove();
+		}
+		else
+			computerMove();
+	}
+	public static void gameStatus() {
+		if (board[1] == board[2] && board[1] == board[3] && board[1] != ' '|| board[4] == board[5] && board[4] == board[6] && board[4] != ' '|| board[7] == board[8] && board[4] == board[9] && board[7] != ' '
+			|| board[1] == board[4] && board[1] == board[7] && board[1] != ' ' || board[2] == board[5] && board[2] == board[8] && board[2] != ' '|| board[3] == board[6] && board[3] == board[9] && board[3] != ' '
+			|| board[1] == board[5] && board[1] == board[9] && board[1] != ' '|| board[3] == board[5] && board[3] == board[7] && board[3] != ' ')
+		{
+			System.out.println(currentPlayer+"won");
+			System.exit(0);
+		}
+		for (int i=1; i<board.length; i++)
+		{
+			if(board[i] == ' ') {
+				play();	
+				break;
+				}
+			else if(board[9] != ' ') {
+				System.out.println("It's Tie.");
+			}
+		}
+			
+		
+	}
 	
 	
 	public static void main(String[] args) {
@@ -91,8 +138,9 @@ public class TicTacToe{
 		chooseLetter();
 		showBoard();
         toss();
-        playerMove();
-		showBoard();
+        while(game.equals("notdone")) {
+        	gameStatus();
+        }
 		sc.close();
 	}
 }
