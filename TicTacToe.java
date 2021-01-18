@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 public class TicTacToe{
 	public static String move = "notdone";
@@ -217,7 +218,9 @@ public class TicTacToe{
 			i++;
 		}
 		if(move.equals("notdone")) {
-			for (int j=1; j<board.length; j++)
+			int corner[] = {1, 3, 7, 9};
+			
+			for (int j: corner)
 				{
 					if(board[j] == ' ') {
 						board[j] = computer_choice;
