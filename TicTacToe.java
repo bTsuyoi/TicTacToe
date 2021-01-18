@@ -99,6 +99,7 @@ public class TicTacToe{
 			|| board[1] == board[5] && board[1] == board[9] && board[1] != ' '|| board[3] == board[5] && board[3] == board[7] && board[3] != ' ')
 		{
 			System.out.println("\n"+ currentPlayer+"won");
+			System.out.println("\nGame over.");
 			System.exit(0);
 		}
 		else {
