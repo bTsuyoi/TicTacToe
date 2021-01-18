@@ -1,4 +1,3 @@
-
 import java.util.Scanner;
 public class TicTacToe{
 	public static String move = "notdone";
@@ -131,6 +130,7 @@ public class TicTacToe{
 		currentPlayer="Computer";
 		String move = "notdone";
 		int i = 0;
+		
 		toCheckWinPosition();
 		while(i<2) {
 			if (i == 1)
@@ -215,21 +215,36 @@ public class TicTacToe{
 				move = "done";
 				break;
 			}
+
 			i++;
 		}
-		if(move.equals("notdone")) {
-			int corner[] = {1, 3, 7, 9};
-			
-			for (int j: corner)
-				{
-					if(board[j] == ' ') {
-						board[j] = computer_choice;
+		if(move.equals("notdone")){
+			int[] corner={1, 3, 7, 9};
+			for (int j:corner){
+				if(board[j] == ' '){
+					board[j] = computer_choice;
+					showBoard();
+					nextPlayer="player";
+					move = "done";
+					break;
+				}
+			}
+			if(move.equals("notdone")){
+				if(board[5] == ' '){
+						board[5] = computer_choice;
 						showBoard();
 						nextPlayer="player";
-						break;
-						}
-				
 				}
+				else {
+					for (i=1; i<board.length; i++){
+						if(board[i] == ' ') {
+							board[i] = computer_choice;
+							showBoard();
+							nextPlayer="player";
+						}
+					}
+				}
+			}
 		}
 	}
 	
