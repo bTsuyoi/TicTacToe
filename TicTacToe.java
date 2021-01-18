@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class TicTacToe{
 	public static String move = "notdone";
 	private static char player_choice;
+	private static char choice;
 	private static char computer_choice;
 	public static String currentPlayer;
 	public static String nextPlayer;
@@ -39,7 +40,7 @@ public class TicTacToe{
 	}
 	
 	public static void playerMove(){
-		System.out.println("Which position you want to enter you next move.");
+		System.out.println("Which position you want to enter your next move.");
 		currentPlayer="Player";
 		move="notdone";
 		while(move.equals("notdone")) {
@@ -62,20 +63,7 @@ public class TicTacToe{
 		}
 		nextPlayer="computer";
 	}
-	public static void computerMove()	{
-		System.out.println("computer move");
-		currentPlayer="Computer";
-		for (int i=1; i<board.length; i++)
-		{
-			if(board[i] == ' ') {
-				board[i] = computer_choice;
-				showBoard();
-				nextPlayer="player";
-				break;
-				}
-		
-		}
-	}
+
 	public static void toss(){
 
 		System.out.println("Toss: Heads 'H' or Tails 'T' :");
@@ -105,25 +93,111 @@ public class TicTacToe{
 			computerMove();
 	}
 	public static void gameStatus() {
+		int count = 0;
 		if (board[1] == board[2] && board[1] == board[3] && board[1] != ' '|| board[4] == board[5] && board[4] == board[6] && board[4] != ' '|| board[7] == board[8] && board[4] == board[9] && board[7] != ' '
 			|| board[1] == board[4] && board[1] == board[7] && board[1] != ' ' || board[2] == board[5] && board[2] == board[8] && board[2] != ' '|| board[3] == board[6] && board[3] == board[9] && board[3] != ' '
 			|| board[1] == board[5] && board[1] == board[9] && board[1] != ' '|| board[3] == board[5] && board[3] == board[7] && board[3] != ' ')
 		{
-			System.out.println(currentPlayer+"won");
+			System.out.println("\n"+ currentPlayer+"won");
 			System.exit(0);
+		}
+		else {
+			play();
 		}
 		for (int i=1; i<board.length; i++)
 		{
-			if(board[i] == ' ') {
-				play();	
-				break;
+			
+			if(board[i] != ' ') {
+				count++;
 				}
-			else if(board[9] != ' ') {
-				System.out.println("It's Tie.");
-			}
 		}
+		if (count == 9) {
+			System.out.println("\nIts a tie");
+			System.exit(0);
+		}
+		
 			
 		
+	}
+	public static void toCheckWinPosition() {
+		choice=computer_choice;
+	}
+	public static void computerMove()	{
+		System.out.println("computer move");
+		currentPlayer="Computer";
+		toCheckWinPosition();
+		if (board[2] == board[3] && board[2] == choice && board[1] == ' '
+				|| board[5] == board[9] && board[5] == choice && board[1] == ' ' 
+				|| board[4] == board[7] && board[4] == choice && board[1] == ' ') {
+			board[1] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[5] == board[8] && board[5] == choice && board[2] == ' '
+				|| board[1] == board[3] && board[1] == choice && board[2] == ' ') {
+			board[2] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[6] == board[9] && board[6] == choice && board[3] == ' '
+				|| board[5] == board[7] && board[5] == choice && board[3] == ' ' 
+				|| board[1] == board[2] && board[1] == choice && board[3] == ' ') {
+			board[3] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[1] == board[7] && board[1] == choice && board[4] == ' ' 
+				|| board[5] == board[6] && board[5] == choice && board[4] == ' ') {
+			board[4] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[3] == board[7] && board[3] == choice && board[5] == ' '
+				|| board[2] == board[8] && board[2] == choice && board[5] == ' ' 
+				|| board[1] == board[9] && board[1] == choice && board[5] == ' '
+				|| board[4] == board[6] && board[4] == choice && board[5] == ' ') {
+			board[5] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[3] == board[9] && board[3] == choice && board[6] == ' '
+				|| board[4] == board[5] && board[4] == choice && board[6] == ' ') {
+			board[6] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[8] == board[9] && board[8] == choice && board[7] == ' ' 
+				|| board[3] == board[5] && board[3] == choice && board[7] == ' ' 
+				|| board[1] == board[4] && board[1] == choice && board[7] == ' ') {
+			board[7] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[2] == board[5] && board[2] == choice && board[8] == ' ' 
+				|| board[7] == board[9] && board[7] == choice && board[8] == ' ') {
+			board[8] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else if (board[3] == board[6] && board[3] == choice && board[9] == ' ' 
+				|| board[1] == board[5] && board[1] == choice && board[9] == ' '
+				|| board[7] == board[8] && board[7] == choice && board[9] == ' ') {
+			board[9] = computer_choice;
+			showBoard();
+			nextPlayer="player";
+		}
+		else {
+		for (int i=1; i<board.length; i++)
+			{
+				if(board[i] == ' ') {
+					board[i] = computer_choice;
+					showBoard();
+					nextPlayer="player";
+					break;
+					}
+			
+			}
+		}
 	}
 	
 	
